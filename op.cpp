@@ -1,3 +1,6 @@
+/*
+
+*/
 #include <iostream>
 #include <vector>
 #include <list>
@@ -11,6 +14,12 @@ struct Car
     double price;
 
     Car(string b, string c, double p) : brand(b), color(c), price(p){};
+
+    // operator overloading of >
+    bool operator>(const Car &prevMaxCar)
+    {
+        return this->price > prevMaxCar.price;
+    }
 };
 
 struct CarCollection
@@ -18,24 +27,22 @@ struct CarCollection
     list<Car> cars;
 
     // operator overloading of +=
-    void operator+=(Car& car){
+    void operator+=(Car &car)
+    {
         this->cars.push_back(car);
     }
 };
 
-
 // operator overloading of <<
-ostream& operator<<(ostream& COUT, Car& car){
+ostream &operator<<(ostream &COUT, Car &car)
+{
     COUT << "Brand\t: " << car.brand << endl;
     COUT << "Color\t: " << car.color << endl;
     COUT << "Prce\t: $" << car.price << endl;
 
-    //enabling multiple << operators overloading in single line  
+    // enabling multiple << operators overloading in single line
     return COUT;
-
 }
-
-
 
 int main()
 {
@@ -43,24 +50,24 @@ int main()
     Car car2 = Car("BMW", "Red", 45000);
     Car car3 = Car("Audi", "Grey", 50000);
 
-
     CarCollection carCollection;
-    carCollection+=car1;
-    carCollection+=car2;
-    carCollection+=car3;
+    carCollection += car1;
+    carCollection += car2;
+    carCollection += car3;
 
-
-
-    cout << car1 << "\n" << car2 << endl;
+    cout << car1 << "\n"
+         << car2 << "\n"
+         << car3 << endl;
 
     Car maxPriceCar = carCollection.cars.front();
-    for(auto car : carCollection.cars){
-        if(car.price > maxPriceCar.price){
+    for (auto car : carCollection.cars)
+    {
+        if (car > maxPriceCar)
+        {
             maxPriceCar = car;
         }
-
     }
-    cout << "====Most Expensive==== \n" << maxPriceCar;
-
+    cout << "====Most Expensive==== \n"
+         << maxPriceCar;
     return 0;
 }
