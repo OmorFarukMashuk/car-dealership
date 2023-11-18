@@ -1,6 +1,5 @@
 #include <iostream>
 
-
 using namespace std;
 
 struct Car
@@ -24,6 +23,8 @@ struct CarDealer
 {
     map<string, Car> cars;
     string dealerID;
+
+    CarDealer(map<string, Car> crs, string did): cars(crs), dealerID(did){}; 
 
     // operator overloading of +=
     void operator+=(Car &car)
@@ -56,16 +57,18 @@ void print(vector<CarDealer> &carDealers)
     }
 }
 
-void insert( string dealerID, Car car, vector<CarDealer> &carDealers){
-        for (int i = 0; i < carDealers.size(); i++)
+void insert(string dealerID, Car car, vector<CarDealer> &carDealers)
+{
+    for (int i = 0; i < carDealers.size(); i++)
     {
-        if (carDealers[i].dealerID == dealerID){
+        if (carDealers[i].dealerID == dealerID)
+        {
             carDealers[i] += car;
         }
-
     }
-
 }
+
+
 
 bool maxCompare(double a, double b)
 {

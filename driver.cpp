@@ -44,6 +44,8 @@ void runUserPrompt(vector<CarDealer> &carDealers)
              << "1 - Add Car\n"
              << "2 - Most Expensive Car\n"
              << "3 - Least Expensive Car\n"
+             << "7 - Transfer Car to Another Dealer\n"
+             << "8 - Get Similar Car for Another Dealer\n"
              << "9 - Show Cars" << endl;
 
         int choice;
@@ -72,6 +74,11 @@ void runUserPrompt(vector<CarDealer> &carDealers)
             Car minExpCar = customExpCar(carDealers, minCompare);
             cout << "Dealer\t: " << minExpCar.dealerID << endl;
             cout << minExpCar << endl;
+            break;
+        }
+        case 7:
+        {
+            TransferCar(carDealers);
             break;
         }
         case 9:
