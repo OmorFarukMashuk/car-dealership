@@ -1,18 +1,17 @@
 /*
 
 * 3 Dealers
-* Car Add to specific dealer
-* Sell Car by specific dealer (by Car ID, delerID)
-* Transfer Car from a dealer to another dealer (by Car ID)
-* Add an exact same model of a car from a dealer to another dealer's car inventory (by Car ID)
-* Sort the Cars (Ascending and descending for each dealer)
-* Get the max and min expensive Car (from both a specific dealer and all dealers)
-* sotre information to a file and read from the file upon starting of the program
-* Change Dealer (by Dealer ID)
-* Show Current Dealer Inventory
+* Car Add to specific dealer (I/P: Dealer ID, Car info)
+* Sell Car by specific dealer (by Car ID, delerID) [not Done yet]
+* Transfer Car from a dealer to another dealer (by DealerID {from and to}, Car ID)
+* Add an exact same model of a car from a dealer to another dealer's car inventory (by Car ID) [not Done yet]
+* Sort the Cars (Ascending and descending for each dealer) [not Done yet]
+* Get the max and min expensive Car (from all dealers)
+* store information to a file and read from the file upon starting of the program
+* Add Dealer (by Dealer ID) [not Done yet]
 * Show All Dealer Inventory
 
-driver.cpp, console.cpp, services.cpp, structs.cpp
+driver.cpp, model.cpp, services.cpp, utils.cpp
 
 */
 #include <iostream>
