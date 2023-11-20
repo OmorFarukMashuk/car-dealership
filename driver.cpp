@@ -77,7 +77,7 @@ void runUserPrompt(vector<CarDealer> &carDealers)
         }
         case 7:
         {
-            TransferCar(carDealers);
+            transferCar(carDealers);
             break;
         }
         case 9:

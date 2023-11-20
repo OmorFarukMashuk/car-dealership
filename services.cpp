@@ -7,7 +7,7 @@ void addCar(vector<CarDealer> &carDealers)
 {
 
     string usrDid;
-    string id = "";
+    string id;
     string brand;
     string color;
     double price;
@@ -20,12 +20,7 @@ void addCar(vector<CarDealer> &carDealers)
     getline(cin >> ws, color);
     cout << "Price\t:";
     cin >> price;
-
-    int idnum = rand() % 10000; // number between 0 and 9999
-
-    stringstream ss;
-    ss << setw(4) << setfill('0') << idnum;
-    id = "C" + ss.str();
+    id = generateRandId();
 
     Car car = Car(usrDid, id, brand, color, price);
 
@@ -48,7 +43,7 @@ void addCar(vector<CarDealer> &carDealers)
     return;
 }
 
-void TransferCar(vector<CarDealer> &carDealers)
+void transferCar(vector<CarDealer> &carDealers)
 {
 
     string fromUsrDid;

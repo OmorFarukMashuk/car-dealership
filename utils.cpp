@@ -14,11 +14,11 @@ struct Car
 
     Car(string did, string id, string b, string c, double p) : dealerID(did), id(id), brand(b), color(c), price(p){};
 
-    // operator overloading of >
-    bool operator>(const Car &prevMaxCar)
-    {
-        return this->price > prevMaxCar.price;
-    }
+    // // operator overloading of >
+    // bool operator>(const Car &prevMaxCar)
+    // {
+    //     return this->price > prevMaxCar.price;
+    // }
 };
 
 struct CarDealer
@@ -60,23 +60,28 @@ void print(vector<CarDealer> &carDealers)
     }
 }
 
-void updateDealerInventory(Car *car, CarDealer *cd){
+string generateRandId()
+{
+    int idnum = rand() % 10000; // number between 0 and 9999
+    stringstream ss;
+    ss << setw(4) << setfill('0') << idnum;
 
-        if (cd->cars.find(car->id) == cd->cars.end())
+    return "C" + ss.str();
+}
+
+void updateDealerInventory(Car *car, CarDealer *cd)
+{
+
+    if (cd->cars.find(car->id) == cd->cars.end())
     {
         // not found
         *cd += *car;
     }
     else
     {
-        int idnum = rand() % 10000; // number between 0 and 9999
-        stringstream ss;
-        ss << setw(4) << setfill('0') << idnum;
-        car->id = "C" + ss.str();
-
+        car->id = generateRandId();
         updateDealerInventory(car, cd);
     }
-
 }
 
 bool maxCompare(double a, double b)
