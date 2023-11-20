@@ -22,14 +22,12 @@ void saveToFile(vector<CarDealer> &carDealers)
                 file << itr->second.brand << '\n';
                 file << itr->second.color << '\n';
                 file << itr->second.price << '\n';
-
             }
         }
 
         // cout << "Dealer\t: " << dealerID << "\nID\t: " << carID << "\nBrand\t: " << brand << "\nColor\t: " << color << "\nPrice\t: " << price << endl;
     }
     file.close();
-
 }
 
 void readFromFile(vector<CarDealer> &carDealers)
@@ -56,9 +54,13 @@ void readFromFile(vector<CarDealer> &carDealers)
             getline(file, line);
             double price = stod(line);
 
-            Car car(dealerID, carID, brand, color, price);
+            Car *car = new Car(dealerID, carID, brand, color, price);
 
-            insert(dealerID, car, carDealers);
+            for (int i = 0; i < carDealers.size(); i++)
+            {
+                if (carDealers[i].dealerID == dealerID)
+                    carDealers[i] += *car;
+            }
 
             // cout << "Dealer\t: " << dealerID << "\nID\t: " << carID << "\nBrand\t: " << brand << "\nColor\t: " << color << "\nPrice\t: " << price << endl;
         }

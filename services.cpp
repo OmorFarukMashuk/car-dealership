@@ -7,7 +7,7 @@ void addCar(vector<CarDealer> &carDealers)
 {
 
     string usrDid;
-    string id;
+    string id = "";
     string brand;
     string color;
     double price;
@@ -29,7 +29,14 @@ void addCar(vector<CarDealer> &carDealers)
 
     Car car = Car(usrDid, id, brand, color, price);
 
-    insert(usrDid, car, carDealers);
+    for (int i = 0; i < carDealers.size(); i++)
+    {
+        if (carDealers[i].dealerID == usrDid)
+        {
+            CarDealer *cd = &carDealers[i];
+            updateDealerInventory(&car, cd);
+        }
+    }
 
     // saving data to data.txt file
     saveToFile(carDealers);
@@ -55,36 +62,30 @@ void TransferCar(vector<CarDealer> &carDealers)
     cout << "Dealer ID (To)\t:";
     getline(std::cin >> ws, toUsrDid);
 
+    Car *targetCar;
     for (int i = 0; i < carDealers.size(); i++)
     {
         if (carDealers[i].dealerID == fromUsrDid)
         {
 
-            Car *targetCar = new Car(carDealers[i].cars.at(fromCarID));
-            // shallow copy - pointing same memory from RHS for car
-            Car *car = targetCar;
-            // deep copy - allocating new memory for car
-            //  Car *car = new Car(*targetCar);
-            delete (targetCar);
-            // carDealers[i].cars.erase(fromCarID);
+            // deep copy
+            targetCar = new Car(carDealers[i].cars.at(fromCarID));
+            carDealers[i].cars.erase(fromCarID);
+        }
+    }
+    for (int i = 0; i < carDealers.size(); i++)
+    {
+        if (carDealers[i].dealerID == toUsrDid)
+        {
+            CarDealer *cd = &carDealers[i];
 
-            cout << *car;
-            // cout << *targetCar;
-
-            CarDealer *cd = new CarDealer(carDealers[i]);
-
-            cout << "[DEALER]......" << cd->dealerID << "[DEALER]" << endl;
-            for (auto carItr = cd->cars.begin(); carItr != cd->cars.end(); ++carItr)
-            {
-                cout << "ID\t: " << carItr->first << '\n'
-                     << carItr->second << '\n';
-            }
-
-            // transfer(new Car(*targetCar),carDealers[i]);
+            // 1st param - shallow copy, 2nd param - shallow copy
+            updateDealerInventory(targetCar, cd);
         }
     }
 
-    // transfer(fromUsrDid,fromCarID,toUsrDid,carDealers);
+    saveToFile(carDealers);
+
 }
 
 Car customExpCar(vector<CarDealer> &carDealers, bool (*compareFuncPtr)(double, double))

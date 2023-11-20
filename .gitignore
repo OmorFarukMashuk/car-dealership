@@ -1,5 +1,6 @@
 *.exe
 *.out
 *.bin
+data copy.txt
 .*
 !/.gitignore

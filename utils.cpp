@@ -10,6 +10,8 @@ struct Car
     string color;
     double price;
 
+    Car(){};
+
     Car(string did, string id, string b, string c, double p) : dealerID(did), id(id), brand(b), color(c), price(p){};
 
     // operator overloading of >
@@ -24,7 +26,8 @@ struct CarDealer
     map<string, Car> cars;
     string dealerID;
 
-    CarDealer(map<string, Car> crs, string did): cars(crs), dealerID(did){}; 
+    CarDealer(){};
+    CarDealer(map<string, Car> crs, string did) : cars(crs), dealerID(did){};
 
     // operator overloading of +=
     void operator+=(Car &car)
@@ -57,18 +60,24 @@ void print(vector<CarDealer> &carDealers)
     }
 }
 
-void insert(string dealerID, Car car, vector<CarDealer> &carDealers)
-{
-    for (int i = 0; i < carDealers.size(); i++)
+void updateDealerInventory(Car *car, CarDealer *cd){
+
+        if (cd->cars.find(car->id) == cd->cars.end())
     {
-        if (carDealers[i].dealerID == dealerID)
-        {
-            carDealers[i] += car;
-        }
+        // not found
+        *cd += *car;
     }
+    else
+    {
+        int idnum = rand() % 10000; // number between 0 and 9999
+        stringstream ss;
+        ss << setw(4) << setfill('0') << idnum;
+        car->id = "C" + ss.str();
+
+        updateDealerInventory(car, cd);
+    }
+
 }
-
-
 
 bool maxCompare(double a, double b)
 {
